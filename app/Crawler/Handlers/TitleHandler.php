@@ -16,7 +16,12 @@ class TitleHandler implements HandlerInterface
     {
         $xpath = new DOMXPath($domDoc);
         $titles = $xpath->evaluate('/html//title');
-        $this->titles[] = strlen(trim(str_replace(['"', "'"], '', $titles[0]->nodeValue)));
+        
+        if (count($titles) === 0) {
+            $this->titles[] = 0;
+        } else {
+            $this->titles[] = strlen(trim(str_replace(['"', "'"], '', $titles[0]->nodeValue)));
+        }
     }
 
     public function getResult(): array
